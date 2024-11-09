@@ -77,10 +77,14 @@ class MovieListViewModel @Inject constructor(val useCase: GetMoviesUseCase, priv
         viewModelScope.launch {
             println("===>${movie.id}, $movie")
             deleteUseCase.invoke(movie).collectLatest {
-                _response.value = when(it){
-                    is Result.Loading -> StateHolder.Loading()
-                    is Result.Success -> StateHolder.Success(it.data ?: emptyList())
-                    is Result.Error -> StateHolder.Error(error = it.message.toString())
+                when(it){
+                    is Result.Loading -> {}
+                    is Result.Success -> {
+                        _response.value = StateHolder.Success(it.data ?: emptyList())
+                    }
+                    is Result.Error -> {
+                        showToastMessage(it.message ?: "Failed to delete")
+                    }
                 }
             }
         }
