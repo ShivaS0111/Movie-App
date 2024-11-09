@@ -40,8 +40,7 @@ class MoviesRepositoryImpl @Inject constructor(
         try {
             val id = localDataSource.getMovieDeleteById(movie)
             if(id>0) {
-                val data = localDataSource.getAllMovies().first()
-                emit(Result.Success(data))
+                emit(Result.Success("Success"))
             }else{
                 emit(Result.Error("failed to delete ${movie.id}"))
             }
@@ -85,7 +84,7 @@ class MockMoviesRepository @Inject constructor(private var mockData: List<Movie>
         try {
             val filter = mockData.filter { it.id != movie.id }
             mockData = filter
-            val result = Result.Success(filter)
+            val result = Result.Success("Success")
             emit(result)
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))

@@ -80,7 +80,10 @@ class MovieListViewModel @Inject constructor(val useCase: GetMoviesUseCase, priv
                 when(it){
                     is Result.Loading -> {}
                     is Result.Success -> {
-                        _response.value = StateHolder.Success(it.data ?: emptyList())
+                        val data =_response.value.data?.toMutableList() ?: mutableListOf()
+                        data.remove(movie)
+                        _response.value = StateHolder.Success(data)
+                        showToastMessage("${movie.name} deleted successfully")
                     }
                     is Result.Error -> {
                         showToastMessage(it.message ?: "Failed to delete")

@@ -5,5 +5,5 @@ import com.invia.domain.datasource.database.entities.Movie
 import kotlinx.coroutines.flow.Flow
 
 interface MovieDeleteUseCase {
-    suspend fun invoke(movie: Movie): Flow<Result<List<Movie>>>
+    suspend fun invoke(movie: Movie): Flow<Result<String>>
 }
