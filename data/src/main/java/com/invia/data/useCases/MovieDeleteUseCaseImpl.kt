@@ -11,8 +11,6 @@ import javax.inject.Inject
 
 class MovieDeleteUseCaseImpl @Inject constructor(private val repository: MoviesRepository) :
     MovieDeleteUseCase {
-    override suspend fun invoke(movie: Movie): Flow<Result<Movie>> {
-        println("====> MovieDeleteUseCaseImpl  deleteMovie $movie")
-        return repository.deleteMovie(movie)
-    }
+
+    override suspend fun invoke(movie: Movie) = repository.deleteMovie(movie)
 }

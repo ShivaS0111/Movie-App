@@ -22,11 +22,11 @@ interface MovieDAO {
 
     @Transaction
     @Delete
-    suspend fun delete(movie: Movie)
+    suspend fun delete(movie: Movie):Int
 
     @Transaction
     @Query("delete from movies where id = (:id)")
-    suspend fun delete(id: Int)
+    suspend fun delete(id: Int):Int
 
     @Transaction
     @Query("SELECT * FROM movies")

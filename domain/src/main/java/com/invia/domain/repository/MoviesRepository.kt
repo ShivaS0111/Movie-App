@@ -10,5 +10,5 @@ interface MoviesRepository {
 
     suspend fun getMovieDetails(movieId: Int): Flow<Result<Movie>>
 
-    suspend fun deleteMovie(movie: Movie): Flow<Result<Movie>>
+    suspend fun deleteMovie(movie: Movie): Flow<Result<List<Movie>>>
 }

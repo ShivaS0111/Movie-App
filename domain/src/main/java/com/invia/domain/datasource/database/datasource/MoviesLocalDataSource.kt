@@ -15,7 +15,7 @@ interface MoviesLocalDataSource {
 
     fun getMovieById(id: Int): Flow<Movie>
 
-    suspend fun getMovieDeleteById(movie: Movie)
+    suspend fun getMovieDeleteById(movie: Movie):Int
 
     fun getMovieBySearch(term: String): Flow<List<Movie>>
 

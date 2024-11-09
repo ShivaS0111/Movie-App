@@ -16,9 +16,9 @@ class MoviesLocalDataSourceImpl @Inject constructor(override var dao: MovieDAO) 
 
     override fun getMovieById(id: Int): Flow<Movie> = dao.getMovieById(id)
 
-    override suspend fun getMovieDeleteById(movie: Movie)  {
+    override suspend fun getMovieDeleteById(movie: Movie) :Int {
         println("====> MoviesLocalDataSourceImpl  getMovieDeleteById  ${movie.id}, $movie")
-        dao.delete(movie)
+        return dao.delete(movie)
     }
 
     override fun getMovieBySearch(term: String) = dao.getMovieBySearch(term)

@@ -35,11 +35,16 @@ class MoviesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteMovie(movie: Movie): Flow<Result<Movie>> = flow {
+    override suspend fun deleteMovie(movie: Movie)= flow {
         println("====> MoviesRepositoryImpl  deleteMovie $movie")
         try {
-            localDataSource.getMovieDeleteById(movie)
-            emit(Result.Success(movie))
+            val id = localDataSource.getMovieDeleteById(movie)
+            if(id>0) {
+                val data = localDataSource.getAllMovies().first()
+                emit(Result.Success(data))
+            }else{
+                emit(Result.Error("failed to delete ${movie.id}"))
+            }
         } catch (e: Exception) {
             emit(Result.Error(e.message))  // Emit an error result if something goes wrong
         }
@@ -80,7 +85,7 @@ class MockMoviesRepository @Inject constructor(private var mockData: List<Movie>
         try {
             val filter = mockData.filter { it.id != movie.id }
             mockData = filter
-            val result = Result.Success(filter.first())
+            val result = Result.Success(filter)
             emit(result)
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
