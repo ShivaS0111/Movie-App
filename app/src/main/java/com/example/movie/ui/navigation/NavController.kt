@@ -12,11 +12,14 @@ import androidx.navigation.Navigator
 import androidx.navigation.navArgument
 
 sealed class Navigate(
-    val route: String, val title: String, val arguments: List<NamedNavArgument>? = emptyList()
+    val route: String,
+    val title: String,
+    val arguments: List<NamedNavArgument>? = emptyList()
 ){
 
     companion object {
         const val splash = "/"
+        const val main = "/main"
         const val login = "/login"
         const val register = "/register"
 
@@ -31,12 +34,16 @@ sealed class Navigate(
         val startDestination = Splash
     }
 
+    data object Main : Navigate(main, "Main")
     data object Splash : Navigate(splash, "Splash")
     data object MovieList : Navigate(movieList, "Movies")
+
     data object MovieDetails : Navigate(
         route = movieDetails,
         title = "Movie Details",
-        arguments = listOf(navArgument("id") { type = NavType.IntType })
+        arguments = listOf(
+            navArgument("id") { type = NavType.IntType }
+        )
     )
 
     data object Home : Navigate(home, title = "Home")

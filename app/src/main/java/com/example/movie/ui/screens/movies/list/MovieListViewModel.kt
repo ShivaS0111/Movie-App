@@ -8,6 +8,7 @@ import com.invia.domain.datasource.database.entities.Movie
 import com.invia.domain.useCases.GetMoviesUseCase
 import com.invia.domain.useCases.MovieDeleteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -52,12 +53,13 @@ class MovieListViewModel @Inject constructor(val useCase: GetMoviesUseCase, priv
         viewModelScope.launch {
             if(!isRefreshing.value){
                 _response.value = StateHolder.Loading()
+                //delay(2000)
             }
             useCase.invoke().collect {
                 _response.value = when (it) {
                     is Result.Loading -> StateHolder.Loading()
                     is Result.Success<*> ->{
-                        if (it.data is List)
+                        if (it.data is List && it.data?.isNotEmpty() == true)
                             StateHolder.Success(it.data!!)
                         else StateHolder.Error(
                             error = "No data found"

@@ -13,10 +13,6 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
 
-    /*@Provides
-    fun provideTvShowsRepository(dataSource: MoviesDataSource): TvShowsRepository =
-        TvShowsRepositoryImpl(dataSource)*/
-
     @Provides
     fun provideMoviesRepository(
         network: MoviesNetworkDataSource,
